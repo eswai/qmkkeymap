@@ -376,6 +376,8 @@
 
           var qline = []
           var cline = []
+          var rsp = " "
+          for (var i = 0; i < qcolw; i++) rsp += " "
           for (var i = 0; i < qtab.length; i++) {
             var csep = "  "
             for (var j = 0; j < col; j++) {
@@ -385,7 +387,7 @@
               ctab[i][j] = t.slice(b, b+hcolw)
               csep += "+----------".slice(0, hcolw + 1)
             }
-            qline.push("    " + qtab[i].join(",").replace(/(,\/\/)|(^\/\/ )/g, "   "))
+            qline.push("    " + qtab[i].join(",").replace(/\/\/\s+,/g, rsp).replace(/,\s+\/\//g, ""))
             cline.push(csep + "+")
             cline.push("  |" + ctab[i].join("|").replace(/\/\//g, "  ") + "|")
           }
