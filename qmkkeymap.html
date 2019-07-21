@@ -27,9 +27,19 @@
               </div>
             </div>
 
-            <div class="field">
+            <div class="field is-grouped">
               <div class="control">
                 <button v-on:click="convert" class="button is-dark">Convert</button>
+              </div>
+              <div class="control">
+                <label class="radio">
+                  <input type="radio" value="US" v-model="lang">
+                  US (KC_*)
+                </label>
+                <label class="radio">
+                  <input type="radio" value="JP" v-model="lang">
+                  JP (JP_*)
+                </label>
               </div>
             </div>
 
@@ -47,6 +57,22 @@
               </div>
             </div> -->
             </div>
+
+            <div class="container">
+              <div class="content">
+                <ul type="1">
+                  <li>A列: レイヤー名　(ENDで終わり、なくてもいい)</li>
+                  <li>B列以降: キー配列</li>
+                  <li>空行: レイヤーの区切り</li>
+                  <li>KC_で始まるキーはKC_を省略できる(だいたい)</li>
+                  <li>記号は記号のままかける</li>
+                  <li>__ (アンダースコア二つ)でKC_TRNS</li>
+                  <li>空セルまたはXXでKC_NO</li>
+                  <li>Control + SはKC_を省略してC(S)と書く(A, G, Sも同様)</li>
+                  <li>スプレッドシートの例は<a href="https://docs.google.com/spreadsheets/d/1BXIF02vxAj8WJBM9pB1jB6HKzlmOieYdPSDEEZ8I8eQ/edit?usp=sharing">ここ</a></li>
+                </ul>
+              </div>
+            </div>
           </section>
 
         </div>
@@ -59,7 +85,9 @@
         tsv: "",
         htmltext: "",
         qmktext : "",
-        kdic: {
+        lang: "US",
+        kdic: {},
+        usdic: {
           "": "XXXXXXX",
           "XX": "XXXXXXX",
           "__": "_______",
@@ -179,6 +207,126 @@
           "RWIN": "KC_RWIN",
           "ZKHK": "KC_ZKHK",
         },
+        jpdic: {
+          "": "XXXXXXX",
+          "XX": "XXXXXXX",
+          "__": "_______",
+          "A": "KC_A",
+          "B": "KC_B",
+          "C": "KC_C",
+          "D": "KC_D",
+          "E": "KC_E",
+          "F": "KC_F",
+          "G": "KC_G",
+          "H": "KC_H",
+          "I": "KC_I",
+          "J": "KC_J",
+          "K": "KC_K",
+          "L": "KC_L",
+          "M": "KC_M",
+          "N": "KC_N",
+          "O": "KC_O",
+          "P": "KC_P",
+          "Q": "KC_Q",
+          "R": "KC_R",
+          "S": "KC_S",
+          "T": "KC_T",
+          "U": "KC_U",
+          "V": "KC_V",
+          "W": "KC_W",
+          "X": "KC_X",
+          "Y": "KC_Y",
+          "Z": "KC_Z",
+          "1": "KC_1",
+          "2": "KC_2",
+          "3": "KC_3",
+          "4": "KC_4",
+          "5": "KC_5",
+          "6": "KC_6",
+          "7": "KC_7",
+          "8": "KC_8",
+          "9": "KC_9",
+          "0": "KC_0",
+          "F1": "KC_F1",
+          "F2": "KC_F2",
+          "F3": "KC_F3",
+          "F4": "KC_F4",
+          "F5": "KC_F5",
+          "F6": "KC_F6",
+          "F7": "KC_F7",
+          "F8": "KC_F8",
+          "F9": "KC_F9",
+          "F10": "KC_F10",
+          "F11": "KC_F11",
+          "F12": "KC_F12",
+          "KANA": "KC_KANA",
+          "RO": "KC_RO",
+          "HENK": "KC_HENK",
+          "MHEN": "KC_MHEN",
+          "PGUP": "KC_PGUP",
+          "PGDN": "KC_PGDN",
+          "HOME": "KC_HOME",
+          "END": "KC_END",
+          "UP": "KC_UP",
+          "DOWN": "KC_DOWN",
+          "LEFT": "KC_LEFT",
+          "RGHT": "KC_RGHT",
+          "APP": "KC_APP",
+          "POWER": "KC_POWER",
+          "MENU": "KC_MENU",
+          ".": "JP_DOT",
+          ",": "JP_COMM",
+          "!": "JP_EXLM",
+          "/": "JP_SLSH",
+          "@": "JP_AT",
+          "#": "JP_HASH",
+          "$": "JP_DLR",
+          "%": "JP_PERC",
+          "^": "JP_CIRC",
+          "&": "JP_AMPR",
+          "*": "JP_ASTR",
+          "(": "JP_LPRN",
+          ")": "JP_RPRN",
+          "-": "JP_MINS",
+          "=": "JP_EQL",
+          "[": "JP_LBRC",
+          "]": "JP_RBRC",
+          "¥": "JP_JYEN",
+          "'": "JP_QUOT",
+          "_": "JP_UNDS",
+          "+": "JP_PLUS",
+          "{": "JP_LCBR",
+          "}": "JP_RCBR",
+          "|": "JP_PIPE",
+          ":": "JP_COLN",
+          "\"": "JP_DQT",
+          "<": "JP_LT",
+          ">": "JP_GT",
+          "?": "JP_QUES",
+          "~": "JP_TILD",
+          "`": "JP_GRV",
+          "\\": "JP_BSLS",
+          ";": "JP_SCLN",
+          "ESC": "KC_ESC",
+          "TAB": "KC_TAB",
+          "SPC": "KC_SPC",
+          "BSPC": "KC_BSPC",
+          "DEL": "KC_DEL",
+          "ENT": "KC_ENT",
+          "LSFT": "KC_LSFT",
+          "RSFT": "KC_RSFT",
+          "LCTL": "KC_LCTL",
+          "RCTL": "KC_RCTL",
+          "LGUI": "KC_LGUI",
+          "RGUI": "KC_RGUI",
+          "LCMD": "KC_LCMD",
+          "RCMD": "KC_RCMD",
+          "LALT": "KC_LALT",
+          "RALT": "KC_RALT",
+          "LWIN": "KC_LWIN",
+          "RWIN": "KC_RWIN",
+          "ZKHK": "KC_ZKHK",
+        },
       },
 
       created: function() {
@@ -252,6 +400,15 @@
         },
 
         convert: function() {
+          switch(this.lang) {
+            case "US":
+              this.kdic = this.usdic
+              break
+            case "JP":
+              this.kdic = this.jpdic
+              break
+          }
+
           var ltexts = this.tsv.replace(/END[^]+/, "")
           ltexts = ltexts.split(/\n\t+\n/)
           var qmk = "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
