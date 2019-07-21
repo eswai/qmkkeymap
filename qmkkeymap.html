@@ -1,0 +1,270 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>QMK Keymap Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+  </head>
+  <body>
+    <div id="app">
+        <section class="hero">
+          <div class="hero-body">
+            <div class="container">
+              <h1 class="title">
+                QMK Keymap Generator
+              </h1>
+              <h2 class="subtitle">
+                Generate QMK keymaps code out of spread sheet such as Excel and Google spread sheet
+              </h2>
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="field">
+              <label class="label">TSV from spread sheet</label>
+              <div class="control">
+                <textarea v-model="tsv" class="textarea" ></textarea>
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="control">
+                <button v-on:click="convert" class="button is-dark">Convert</button>
+              </div>
+            </div>
+
+            <div class="field">
+              <label class="label">QMK keymap</label>
+              <div class="control">
+                <textarea v-model="qmktext" class="textarea"></textarea>
+              </div>
+            </div>
+
+  <!--           <div class="field">
+              <label class="label">HTML table</label>
+              <div class="control">
+                <textarea v-model="htmltext" class="textarea"></textarea>
+              </div>
+            </div> -->
+            </div>
+          </section>
+
+        </div>
+  </body>
+
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#app',
+      data: {
+        tsv: "",
+        htmltext: "",
+        qmktext : "",
+        kdic: {
+          "": "XXXXXXX",
+          "XX": "XXXXXXX",
+          "__": "_______",
+          "A": "KC_A",
+          "B": "KC_B",
+          "C": "KC_C",
+          "D": "KC_D",
+          "E": "KC_E",
+          "F": "KC_F",
+          "G": "KC_G",
+          "H": "KC_H",
+          "I": "KC_I",
+          "J": "KC_J",
+          "K": "KC_K",
+          "L": "KC_L",
+          "M": "KC_M",
+          "N": "KC_N",
+          "O": "KC_O",
+          "P": "KC_P",
+          "Q": "KC_Q",
+          "R": "KC_R",
+          "S": "KC_S",
+          "T": "KC_T",
+          "U": "KC_U",
+          "V": "KC_V",
+          "W": "KC_W",
+          "X": "KC_X",
+          "Y": "KC_Y",
+          "Z": "KC_Z",
+          "1": "KC_1",
+          "2": "KC_2",
+          "3": "KC_3",
+          "4": "KC_4",
+          "5": "KC_5",
+          "6": "KC_6",
+          "7": "KC_7",
+          "8": "KC_8",
+          "9": "KC_9",
+          "0": "KC_0",
+          "F1": "KC_F1",
+          "F2": "KC_F2",
+          "F3": "KC_F3",
+          "F4": "KC_F4",
+          "F5": "KC_F5",
+          "F6": "KC_F6",
+          "F7": "KC_F7",
+          "F8": "KC_F8",
+          "F9": "KC_F9",
+          "F10": "KC_F10",
+          "F11": "KC_F11",
+          "F12": "KC_F12",
+          "KANA": "KC_KANA",
+          "RO": "KC_RO",
+          "HENK": "KC_HENK",
+          "MHEN": "KC_MHEN",
+          "PGUP": "KC_PGUP",
+          "PGDN": "KC_PGDN",
+          "HOME": "KC_HOME",
+          "END": "KC_END",
+          "UP": "KC_UP",
+          "DOWN": "KC_DOWN",
+          "LEFT": "KC_LEFT",
+          "RGHT": "KC_RGHT",
+          "APP": "KC_APP",
+          "POWER": "KC_POWER",
+          "MENU": "KC_MENU",
+          ".": "KC_DOT",
+          ",": "KC_COMM",
+          "!": "KC_EXLM",
+          "/": "KC_SLSH",
+          "@": "KC_AT",
+          "#": "KC_HASH",
+          "$": "KC_DLR",
+          "%": "KC_PERC",
+          "^": "KC_CIRC",
+          "&": "KC_AMPR",
+          "*": "KC_AST",
+          "(": "KC_LPRN",
+          ")": "KC_RPRN",
+          "-": "KC_MINS",
+          "=": "KC_EQL",
+          "[": "KC_LBRC",
+          "]": "KC_RBRC",
+          "¥": "KC_JYEN",
+          "'": "KC_QUOT",
+          "_": "KC_UNDS",
+          "+": "KC_PLUS",
+          "{": "KC_LCBR",
+          "}": "KC_RCBR",
+          "|": "KC_PIPE",
+          ":": "KC_COLN",
+          "\"": "KC_DQT",
+          "<": "KC_LT",
+          ">": "KC_GT",
+          "?": "KC_QUES",
+          "~": "KC_TILD",
+          "`": "KC_GRV",
+          "\\": "KC_BSLS",
+          "ESC": "KC_ESC",
+          "TAB": "KC_TAB",
+          "SPC": "KC_SPC",
+          "BSPC": "KC_BSPC",
+          "DEL": "KC_DEL",
+          "ENT": "KC_ENT",
+          "LSHFT": "KC_LSHFT",
+          "RSHFT": "KC_RSHFT",
+          "LCTL": "KC_LCTL",
+          "RCTL": "KC_RCTL",
+          "LGUI": "KC_LGUI",
+          "RGUI": "KC_RGUI",
+          "LCMD": "KC_LCMD",
+          "RCMD": "KC_RCMD",
+          "LALT": "KC_LALT",
+          "RALT": "KC_RALT",
+          "LWIN": "KC_LWIN",
+          "RWIN": "KC_RWIN",
+          "ZKHK": "KC_ZKHK",
+        },
+      },
+
+      created: function() {
+      },
+
+      methods: {
+        convert_layer: function(text) {
+          var qtab = []
+          var ctab = []
+          var htab = []
+          var col = 0
+          var qcolw = 7
+          var hcolw = 5
+          var layer
+
+          var lines = text.split("\n")
+          for (var i = 0; i < lines.length; i++) {
+            var qk = []
+            var hk = []
+            var keys = lines[i].split("\t")
+            if (keys[0])
+              layer = keys.shift()
+            else
+              keys.shift()
+            for (var j = 0; j < keys.length; j++) {
+              if (this.kdic[keys[j]]) {
+                qk.push(this.kdic[keys[j]])
+                if (col < j + 1) col = j + 1
+              } else {
+                var m = keys[j].match(/([GCAS])\((.+)\)/)
+                // console.log(m)
+                if (m) {
+                  qk.push(m[1] + "(KC_" + m[2] + ")")
+                } else {
+                  qk.push(keys[j])
+                }
+              }
+              hk.push(keys[j])
+              if (qcolw < qk[j].length) qcolw = qk[j].length
+              if (hcolw < keys[j].length) hcolw = keys[j].length
+            }
+            qtab.push(qk)
+            ctab.push(hk)
+            htab.push(hk)
+          }
+
+          var qline = []
+          var cline = []
+          for (var i = 0; i < qtab.length; i++) {
+            var csep = "  "
+            for (var j = 0; j < col; j++) {
+              qtab[i][j] = (qtab[i][j] + "          ").slice(0, qcolw)
+              ctab[i][j] = (htab[i][j] + "          ").slice(0, hcolw)
+              csep += "+----------".slice(0, hcolw + 1)
+            }
+            qline.push("    " + qtab[i].join(","))
+            cline.push(csep + "+")
+            cline.push("  |" + ctab[i].join("|") + "|")
+          }
+          cline.push(csep + "+")
+
+          var qt = ""
+          qt += "/* " + layer + "\n"
+          qt += cline.join("\n") + "\n"
+          qt += "*/\n"
+          qt += "  [" + layer + "] = LAYOUT(\n"
+          qt += qline.join(", \\ \n")
+          qt += "\n  ),\n"
+
+          return {qmk: qt, html: ""}
+        },
+
+        convert: function() {
+          var ltexts = this.tsv.replace(/END[^]+/, "")
+          ltexts = ltexts.split(/\n\t+\n/)
+          var qmk = "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
+
+          for (var i = 0; i < ltexts.length; i++) {
+            if (ltexts[i]) {
+              var r = this.convert_layer(ltexts[i])
+              qmk += r.qmk + "\n"
+            }
+          }
+          qmk += "};\n"
+          this.qmktext = qmk
+        }
+      }
+    })
+  </script>
+</html>
