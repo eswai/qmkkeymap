@@ -66,10 +66,11 @@
                   <li>空行: レイヤーの区切り</li>
                   <li>KC_で始まるキーはKC_を省略できる(だいたい)</li>
                   <li>記号は記号のままかける</li>
+                  <li>格子配列でない場合、//でキーを飛ばす</li>
                   <li>__ (アンダースコア二つ)でKC_TRNS</li>
                   <li>空セルまたはXXでKC_NO</li>
                   <li>Control + SはKC_を省略してC(S)と書く(A, G, Sも同様)</li>
-                  <li>スプレッドシートの例は<a href="https://docs.google.com/spreadsheets/d/1BXIF02vxAj8WJBM9pB1jB6HKzlmOieYdPSDEEZ8I8eQ/edit?usp=sharing" target="_">ここ(Google spreadsheet)</a></li>
+                  <li>スプレッドシートの例は<a href="https://docs.google.com/spreadsheets/d/1_sk_UiJsDpTn4QwVwMKy3JRrFpHGlpp3Nt-ixHnhXA8/edit?usp=sharing" target="_">ここ(Google spreadsheet)</a></li>
                 </ul>
               </div>
             </div>
@@ -382,9 +383,9 @@
               ctab[i][j] = (htab[i][j] + "          ").slice(0, hcolw)
               csep += "+----------".slice(0, hcolw + 1)
             }
-            qline.push("    " + qtab[i].join(","))
+            qline.push("    " + qtab[i].join(",").replace(/(,\/\/)|(^\/\/ )/g, "   "))
             cline.push(csep + "+")
-            cline.push("  |" + ctab[i].join("|") + "|")
+            cline.push("  |" + ctab[i].join("|").replace(/\/\//g, "  ") + "|")
           }
           cline.push(csep + "+")
 
