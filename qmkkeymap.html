@@ -216,6 +216,8 @@
           "LWIN": "KC_LWIN",
           "RWIN": "KC_RWIN",
           "ZKHK": "KC_ZKHK",
+          "HOME": "KC_HOME",
+          "END": "KC_END",
         },
         jpdic: {
           "": "XXXXXXX",
@@ -336,6 +338,8 @@
           "LWIN": "KC_LWIN",
           "RWIN": "KC_RWIN",
           "ZKHK": "KC_ZKHK",
+          "HOME": "KC_HOME",
+          "END": "KC_END",
         },
       },
 
@@ -423,7 +427,7 @@
               break
           }
 
-          var ltexts = this.tsv.replace(/END[^]+/, "")
+          var ltexts = this.tsv.replace(/<END>[^]+/, "")
           ltexts = ltexts.split(/\n\t+\n/)
           var qmk = "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
 
