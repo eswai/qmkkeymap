@@ -61,7 +61,7 @@
             <div class="container">
               <div class="content">
                 <ul type="1">
-                  <li>A列: レイヤー名　(ENDで終わり、なくてもいい)</li>
+                  <li>A列: レイヤー名　(::END::で終わり、なくてもいい)</li>
                   <li>B列以降: キー配列</li>
                   <li>空行: レイヤーの区切り</li>
                   <li>KC_で始まるキーはKC_を省略できる(だいたい)</li>
@@ -427,7 +427,7 @@
               break
           }
 
-          var ltexts = this.tsv.replace(/<END>[^]+/, "")
+          var ltexts = this.tsv.replace(/::END::[^]+/, "")
           ltexts = ltexts.split(/\n\t+\n/)
           var qmk = "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
 
