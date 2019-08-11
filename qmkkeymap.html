@@ -222,6 +222,8 @@
           "SLEP": "KC_SLEP",
           "CALC": "KC_CALC",
           "PWR": "KC_PWR",
+          "MYCM": "KC_MYCM",
+          "MAIL": "KC_MAIL",
         },
         jpdic: {
           "": "XXXXXXX",
@@ -348,6 +350,8 @@
           "SLEP": "KC_SLEP",
           "CALC": "KC_CALC",
           "PWR": "KC_PWR",
+          "MYCM": "KC_MYCM",
+          "MAIL": "KC_MAIL",
         },
       },
 
@@ -356,9 +360,9 @@
 
       methods: {
         convert_layer: function(text) {
-          var qtab = []
-          var ctab = []
-          var htab = []
+          var qtab = [] // QMKコード用
+          var ctab = [] // QMKコメント用(センタリング後)
+          var htab = [] // QMKコメント用(センタリング前)
           var col = 0
           var qcolw = 7
           var hcolw = 5
@@ -369,15 +373,18 @@
             var qk = []
             var hk = []
             var keys = lines[i].split("\t")
-            if (keys[0])
+            // Layer名があるか
+            if (keys[0] && keys[0].trim().length > 0)
               layer = keys.shift()
             else
               keys.shift()
             for (var j = 0; j < keys.length; j++) {
-              if (this.kdic[keys[j]]) {
+              // 辞書にあるか
+              if (keys[j] in this.kdic) {
                 qk.push(this.kdic[keys[j]])
                 if (col < j + 1) col = j + 1
               } else {
+                // C()のようなマクロか
                 var m = keys[j].match(/([GCAS])\((.+)\)/)
                 // console.log(m)
                 if (m) {
@@ -393,7 +400,7 @@
             qtab.push(qk)
             ctab.push(hk)
             htab.push(hk)
-          }
+          } // パース完了
 
           var qline = []
           var cline = []
@@ -405,7 +412,7 @@
               qtab[i][j] = (qtab[i][j] + "          ").slice(0, qcolw)
               var t = "          " + htab[i][j] + "          "
               var b = (t.length - hcolw + 1) / 2
-              ctab[i][j] = t.slice(b, b+hcolw)
+              ctab[i][j] = t.slice(b, b+hcolw) // センタリング
               csep += "+----------".slice(0, hcolw + 1)
             }
             qline.push("    " + qtab[i].join(",").replace(/\/\/\s+,/g, rsp).replace(/,\s+\/\//g, ""))
@@ -436,7 +443,7 @@
           }
 
           var ltexts = this.tsv.replace(/::END::[^]+/, "")
-          ltexts = ltexts.split(/\n\t+\n/)
+          ltexts = ltexts.split(/\n\t+\n/) // レイヤー間の分割
           var qmk = "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {\n"
 
           for (var i = 0; i < ltexts.length; i++) {
