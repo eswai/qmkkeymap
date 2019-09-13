@@ -409,11 +409,11 @@
           for (var i = 0; i < qtab.length; i++) {
             var csep = "  "
             for (var j = 0; j < col; j++) {
-              qtab[i][j] = (qtab[i][j] + "          ").slice(0, qcolw)
-              var t = "          " + htab[i][j] + "          "
+              qtab[i][j] = (qtab[i][j] + "                    ").slice(0, qcolw)
+              var t = "               " + htab[i][j] + "               "
               var b = (t.length - hcolw + 1) / 2
               ctab[i][j] = t.slice(b, b+hcolw) // センタリング
-              csep += "+----------".slice(0, hcolw + 1)
+              csep += "+--------------------".slice(0, hcolw + 1)
             }
             qline.push("    " + qtab[i].join(",").replace(/\/\/\s+,/g, rsp).replace(/,\s+\/\//g, ""))
             cline.push(csep + "+")
