@@ -415,7 +415,7 @@
               ctab[i][j] = t.slice(b, b+hcolw) // センタリング
               csep += "+--------------------".slice(0, hcolw + 1)
             }
-            qline.push("    " + qtab[i].join(",").replace(/\/\/\s+,/g, rsp).replace(/,\s+\/\//g, ""))
+            qline.push("    " + qtab[i].join(",").replace(/\/\/\s+,/g, rsp).replace(/,\s*\/\//g, ""))
             cline.push(csep + "+")
             cline.push("  |" + ctab[i].join("|").replace(/\/\//g, "  ") + "|")
           }
